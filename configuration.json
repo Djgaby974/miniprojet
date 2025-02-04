@@ -1,0 +1,7 @@
+{
+    "modele": "llama3.2",
+    "role": "Assistant Général",
+    "theme": "sombre",
+    "taille_police": 12,
+    "langue": "français"
+}
