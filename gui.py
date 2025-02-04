@@ -332,26 +332,35 @@ class InterfaceAssistantIA(ctk.CTk):
         
         return 'break'
 
-    def _envoyer_message(self, event=None):
-        message = self.saisie_message.get()
-        if message:
-            # Vérifier si c'est une commande spéciale
-            resultat_commande = self.traiter_commande_speciale(message)
+def _envoyer_message(self, event=None):
+    message = self.saisie_message.get()
+    if message:
+        # Vérifier si c'est une commande spéciale
+        resultat_commande = self.traiter_commande_speciale(message)
+        
+        if resultat_commande:
+            # Ajouter le message original et la réponse
+            self._ajouter_message("Utilisateur", message)
+            self._ajouter_message("Assistant", resultat_commande)
+        else:
+            # Ajouter le message de l'utilisateur
+            self._ajouter_message("Utilisateur", message)
             
-            if resultat_commande:
-                self._ajouter_message("Assistant", resultat_commande)
-            else:
-                # Ajouter le message de l'utilisateur
-                self._ajouter_message("Utilisateur", message)
-                
-                # Désactiver la saisie pendant le traitement
-                self.saisie_message.configure(state='disabled')
-                
-                # Lancer la génération de réponse dans un thread séparé
-                threading.Thread(target=self._generer_reponse_ia, args=(message,), daemon=True).start()
+            # Désactiver la saisie pendant le traitement
+            self.saisie_message.configure(state='disabled')
             
-            # Effacer la saisie
-            self.saisie_message.delete(0, tk.END)
+            # Lancer la génération de réponse dans un thread séparé
+            threading.Thread(
+                target=self._generer_reponse_ia, 
+                args=(message,), 
+                daemon=True
+            ).start()
+        
+        # Effacer la saisie
+        self.saisie_message.delete(0, tk.END)
+        
+        # Faire défiler automatiquement vers le bas
+        self.cadre_chat.yview_moveto(1.0)
 
     def _traiter_commande_speciale(self, commande):
         commandes_speciales = {
