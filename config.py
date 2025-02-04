@@ -8,12 +8,19 @@ class ConfigurationAssistant:
 
     def _charger_configuration(self):
         config_defaut = {
-            'modele': 'llama3.2',  # Modèle par défaut mis à llama3.2
-            'role': 'Assistant Général',
-            'theme': 'sombre',
-            'taille_police': 12,
-            'langue': 'français'
-        }
+        'modele': 'llama3.2',
+        'role': 'Assistant Général',
+        'theme': 'sombre',
+        'taille_police': 12,
+        'langue': 'français',  # Langue par défaut
+        'prompt_systeme': """
+        Tu es un assistant IA conversationnel. 
+        Règles importantes :
+        - Réponds TOUJOURS en français
+        - Sois précis et concis
+        - Adapte ton langage au contexte de la conversation
+        """
+    }
 
         if os.path.exists(self.chemin_config):
             try:

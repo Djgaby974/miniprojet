@@ -100,28 +100,28 @@ class InterfaceAssistantIA(ctk.CTk):
 
     def obtenir_suggestions(self, commande):
         suggestions = {
-            "Développement": [
-                "/code python", 
-                "/debug", 
-                "/genere_classe", 
-                "/refactoring"
-            ],
-            "Cybersécurité": [
-                "/scan_vulnerabilite", 
-                "/genere_politique", 
-                "/analyse_logs"
-            ],
-            "Data Science": [
-                "/analyse_donnees", 
-                "/genere_graphique", 
-                "/entrainement_modele"
-            ],
-            "Cloud": [
-                "/deploie_container", 
-                "/config_kubernetes", 
-                "/audit_securite"
-            ]
-        }
+        "Développement": [
+            "/generer_code_python", 
+            "/debugger", 
+            "/generer_classe", 
+            "/refactoriser"
+        ],
+        "Cybersécurité": [
+            "/scanner_vulnerabilite", 
+            "/generer_politique", 
+            "/analyser_logs"
+        ],
+        "Data Science": [
+            "/analyser_donnees", 
+            "/generer_graphique", 
+            "/entrainer_modele"
+        ],
+        "Cloud": [
+            "/deployer_container", 
+            "/configurer_kubernetes", 
+            "/auditer_securite"
+        ]
+    }
         return [cmd for cmd in suggestions.get(self.contexte_actuel, []) if cmd.startswith(commande)]
 
     def selectionner_suggestion(self, event):
@@ -162,11 +162,11 @@ class InterfaceAssistantIA(ctk.CTk):
 
     def traiter_commande_speciale(self, commande):
         commandes_speciales = {
-            "/code python": self.generer_code_python,
-            "/debug": self.mode_debug,
-            "/genere_classe": self.generer_classe,
-            "/scan_vulnerabilite": self.scanner_vulnerabilite,
-            "/analyse_donnees": self.analyser_donnees
+            "/generer_code python": self.generer_code_python,
+            "/debugger": self.mode_debug,
+            "/generer_classe": self.generer_classe,
+            "/scanner_vulnerabilite": self.scanner_vulnerabilite,
+            "/analyser_donnees": self.analyser_donnees
         }
         
         for prefixe, fonction in commandes_speciales.items():
