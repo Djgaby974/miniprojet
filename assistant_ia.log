@@ -282,3 +282,4 @@ AttributeError: 'CTkTabview' object has no attribute 'tabs'
 2025-02-06 11:39:04,336 - AssistantIA - INFO - - Modèle sans nom
 2025-02-06 11:39:04,337 - AssistantIA - INFO - - Modèle sans nom
 2025-02-06 11:39:04,520 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-06 11:42:27,868 - AssistantIA - INFO - Fermeture de l'Assistant IA
