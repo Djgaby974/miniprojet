@@ -283,3 +283,72 @@ AttributeError: 'CTkTabview' object has no attribute 'tabs'
 2025-02-06 11:39:04,337 - AssistantIA - INFO - - Modèle sans nom
 2025-02-06 11:39:04,520 - AssistantIA - INFO - Lancement de l'interface utilisateur
 2025-02-06 11:42:27,868 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-06 12:14:21,194 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-06 12:14:21,264 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-06 12:14:21,265 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-06 12:14:21,267 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 12:14:21,267 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 12:14:21,612 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-06 12:24:18,437 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-06 12:24:21,357 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-06 12:24:21,397 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-06 12:24:21,397 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-06 12:24:21,399 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 12:24:21,399 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 12:24:21,637 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-06 12:27:43,814 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-06 12:28:04,137 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-06 12:28:04,183 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-06 12:28:04,183 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-06 12:28:04,184 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 12:28:04,184 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 12:28:04,451 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-06 12:30:42,267 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-06 12:30:45,150 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-06 12:30:45,162 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-06 12:30:45,163 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-06 12:30:45,164 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 12:30:45,165 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 12:30:45,376 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-06 12:34:00,534 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-06 12:34:05,204 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-06 12:34:05,213 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-06 12:34:05,214 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-06 12:34:05,214 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 12:34:05,215 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 12:34:05,408 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-06 12:38:09,416 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-06 12:41:52,847 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-06 12:41:52,898 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-06 12:41:52,899 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-06 12:41:52,899 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 12:41:52,900 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 12:41:53,123 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-06 12:48:10,730 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-06 12:48:13,996 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-06 12:48:14,037 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-06 12:48:14,038 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-06 12:48:14,039 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 12:48:14,040 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 12:48:14,282 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-06 12:52:31,194 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-06 12:52:36,306 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-06 12:52:36,342 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-06 12:52:36,344 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-06 12:52:36,345 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 12:52:36,345 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 12:52:36,346 - AssistantIA - CRITICAL - Erreur fatale : InterfaceAssistantIA.__init__() missing 1 required positional argument: 'gestionnaire_ollama'
+Traceback (most recent call last):
+  File "C:\Users\gabri\OneDrive\Bureau\CDA8-FORMATION\Cinquième semaine de formation\miniprojet\main.py", line 57, in principale
+    application = InterfaceAssistantIA(gestionnaire_config)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: InterfaceAssistantIA.__init__() missing 1 required positional argument: 'gestionnaire_ollama'
+2025-02-06 12:52:36,347 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-06 13:19:45,926 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-06 13:19:45,978 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-06 13:19:45,985 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-06 13:19:45,986 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-06 13:19:45,986 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 13:19:45,987 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 13:19:46,245 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-06 13:23:54,507 - AssistantIA - INFO - Fermeture de l'Assistant IA

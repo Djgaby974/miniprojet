@@ -2,7 +2,7 @@ import ollama
 import logging
 from logging.handlers import RotatingFileHandler
 import sys
-from config import ConfigurationAssistant
+from config import ConfigurationAssistant, GestionnaireOllama
 from gui import InterfaceAssistantIA
 
 def configurer_logging():
@@ -33,10 +33,10 @@ def configurer_logging():
     
     return logger
 
-def verifier_ollama(logger):
+def verifier_ollama(logger, gestionnaire_ollama):
     """Vérifie la disponibilité d'Ollama avec logging détaillé"""
     try:
-        modeles = ollama.list()
+        modeles = gestionnaire_ollama.list()
         logger.info("Connexion à Ollama réussie")
         logger.info("Modèles Ollama disponibles :")
         for modele in modeles.get('models', []):
@@ -47,14 +47,24 @@ def verifier_ollama(logger):
         sys.exit(1)
 
 def principale():
-    logger = configurer_logging()
-    logger.info("Démarrage de l'Assistant IA")
-    
+    """
+    Fonction principale pour lancer l'application
+    """
     try:
-        verifier_ollama(logger)
+        logger = configurer_logging()
+        logger.info("Démarrage de l'Assistant IA")
         
+        # Initialiser le gestionnaire de configuration et Ollama
         gestionnaire_config = ConfigurationAssistant()
-        application = InterfaceAssistantIA(gestionnaire_config)
+        gestionnaire_ollama = GestionnaireOllama()
+        
+        verifier_ollama(logger, gestionnaire_ollama)
+        
+        # Créer et lancer l'application
+        application = InterfaceAssistantIA(
+            gestionnaire_config, 
+            gestionnaire_ollama
+        )
         
         logger.info("Lancement de l'interface utilisateur")
         application.executer()

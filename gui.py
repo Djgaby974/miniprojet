@@ -18,6 +18,9 @@ from PIL import Image
 from io import BytesIO
 import queue
 import time
+import webbrowser
+from bs4 import BeautifulSoup
+import urllib.parse
 
 # Palette de couleurs (conservée de l'ancienne implémentation)
 COULEURS = {
@@ -32,13 +35,16 @@ COULEURS = {
 }
 
 class ConversationOnglet(ctk.CTkFrame):
-    def __init__(self, master, gestionnaire_config, **kwargs):
+    def __init__(self, master, gestionnaire_config, gestionnaire_ollama, **kwargs):
         super().__init__(
             master, 
             fg_color=COULEURS["fond_principal"],  
             corner_radius=10,
             **kwargs
         )
+        
+        # Stocker le gestionnaire Ollama
+        self.gestionnaire_ollama = gestionnaire_ollama
         
         self.gestionnaire_config = gestionnaire_config
         self.contexte_actuel = "Développement"
@@ -147,6 +153,27 @@ class ConversationOnglet(ctk.CTkFrame):
         )
         self.bouton_generer_image.pack(side='left', padx=5)
         
+        # Bouton pour le mode écriture
+        self.bouton_ecriture = ctk.CTkButton(
+            self.barre_outils,
+            text="Mode Écriture", 
+            command=self._ajouter_mode_ecriture,
+            width=120
+        )
+        self.bouton_ecriture.pack(side='left', padx=5)
+        
+        # Case à cocher pour la recherche web
+        self.var_recherche_web = tk.BooleanVar(value=False)
+        self.case_recherche_web = ctk.CTkCheckBox(
+            self.barre_outils, 
+            text="Recherche Web", 
+            variable=self.var_recherche_web,
+            onvalue=True, 
+            offvalue=False,
+            width=120
+        )
+        self.case_recherche_web.pack(side='left', padx=5)
+        
         # Frame pour afficher les images
         self.cadre_images = ctk.CTkScrollableFrame(
             self, 
@@ -187,6 +214,12 @@ class ConversationOnglet(ctk.CTkFrame):
         
     def envoyer_message(self, event=None):
         message = self.saisie_message.get()
+        
+        # Vérifier si la recherche web est activée
+        if self.var_recherche_web.get():
+            self._effectuer_recherche_web(message)
+            return
+        
         if message:
             # Vérifier si c'est une commande spéciale
             resultat_commande = self._traiter_commande_speciale(message)
@@ -269,7 +302,7 @@ class ConversationOnglet(ctk.CTkFrame):
             """)
 
             # Générer la réponse avec Ollama
-            reponse = ollama.chat(
+            reponse = self.gestionnaire_ollama.chat(
                 model=modele,
                 messages=[
                     {'role': 'system', 'content': prompt_systeme},
@@ -477,7 +510,7 @@ class {nom_classe}:
         
         try:
             # Générer un résumé avec Ollama
-            reponse = ollama.chat(
+            reponse = self.gestionnaire_ollama.chat(
                 model='llama3.2',
                 messages=[
                     {
@@ -717,8 +750,304 @@ class {nom_classe}:
             # Réinitialiser le verrou de génération
             self.generation_en_cours = False
             
+    def _effectuer_recherche_web(self, requete):
+        """Effectue une recherche web et affiche les résultats"""
+        try:
+            # Clé API SerpAPI (vous devrez la remplacer)
+            api_key = "db9e53e5ebb0deb3d3d6c45ab14e5822b5e0e6b0862771f7ebf723c49ee1855f"  # À remplacer par votre clé
+            
+            # Paramètres de recherche
+            params = {
+                "engine": "google",
+                "q": requete,
+                "api_key": api_key,
+                "num": 5  # Limiter à 5 résultats
+            }
+            
+            # URL de l'API SerpAPI
+            url = "https://serpapi.com/search"
+            
+            # Effectuer la requête
+            reponse = requests.get(url, params=params)
+            
+            # Vérifier si la requête a réussi
+            if reponse.status_code != 200:
+                self._ajouter_message("Système", f"Erreur de recherche : {reponse.status_code}")
+                return
+            
+            # Convertir la réponse en JSON
+            resultats_json = reponse.json()
+            
+            # Vérifier si des résultats sont présents
+            if 'organic_results' not in resultats_json:
+                self._ajouter_message("Système", "Aucun résultat trouvé.")
+                return
+            
+            # Créer un cadre de message pour les résultats
+            cadre_resultats = ctk.CTkFrame(
+                self.cadre_chat, 
+                fg_color=COULEURS["fond_chat"],
+                corner_radius=10
+            )
+            cadre_resultats.pack(fill='x', padx=10, pady=5, anchor='w')
+            
+            # Étiquette pour l'expéditeur
+            ctk.CTkLabel(
+                cadre_resultats, 
+                text="Résultats de Recherche Web", 
+                font=("Arial", 10, "bold"),
+                text_color=COULEURS["texte_secondaire"]
+            ).pack(anchor='w', padx=10, pady=(5,0))
+            
+            # Parcourir les résultats
+            for i, resultat in enumerate(resultats_json['organic_results'][:5], 1):
+                # Cadre pour chaque résultat
+                cadre_resultat = ctk.CTkFrame(
+                    cadre_resultats, 
+                    fg_color="transparent"
+                )
+                cadre_resultat.pack(fill='x', padx=10, pady=2, anchor='w')
+                
+                # Titre du résultat (cliquable)
+                lien_titre = ctk.CTkButton(
+                    cadre_resultat,
+                    text=f"{i}. {resultat.get('title', 'Pas de titre')[:100]}...", 
+                    command=lambda url=resultat.get('link', '#'): webbrowser.open(url),
+                    fg_color="transparent",
+                    hover_color=COULEURS["accent_secondaire"],
+                    text_color=COULEURS["accent_primaire"],
+                    anchor='w',
+                    width=500,
+                    height=30
+                )
+                lien_titre.pack(side='left', padx=(0,5))
+                
+                # Description courte
+                ctk.CTkLabel(
+                    cadre_resultat, 
+                    text=resultat.get('snippet', 'Pas de description')[:200] + "...", 
+                    font=("Arial", 10),
+                    text_color=COULEURS["texte_secondaire"],
+                    wraplength=500,
+                    width=500
+                ).pack(side='left')
+            
+            # Faire défiler jusqu'en bas
+            self.cadre_chat.update()
+            self.cadre_chat._parent_canvas.yview_moveto(1.0)
+            
+            # Effacer la saisie
+            self.saisie_message.delete(0, tk.END)
+            
+        except Exception as e:
+            self._ajouter_message("Système", f"Erreur de recherche web : {str(e)}")
+            # Ajouter un message de débogage détaillé
+            import traceback
+            self._ajouter_message("Système", traceback.format_exc())
+            
+    def _rechercher_web(self, requete):
+        """Effectue une recherche web et retourne les résultats"""
+        try:
+            # Encoder la requête pour l'URL
+            requete_encodee = urllib.parse.quote(requete)
+            
+            # URL de recherche Google
+            url_recherche = f"https://www.google.com/search?q={requete_encodee}"
+            
+            # En-têtes pour simuler un navigateur
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+                'Accept-Language': 'fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7'
+            }
+            
+            # Effectuer la requête
+            reponse = requests.get(url_recherche, headers=headers)
+            
+            # Vérifier si la requête a réussi
+            if reponse.status_code != 200:
+                self._ajouter_message("Système", f"Erreur de recherche : {reponse.status_code}")
+                return []
+            
+            # Analyser le HTML
+            soup = BeautifulSoup(reponse.text, 'html.parser')
+            
+            # Trouver les résultats de recherche
+            resultats = soup.find_all('div', class_='g')
+            
+            # Créer une liste de résultats
+            resultats_recherche = []
+            
+            # Limiter à 5 résultats
+            for i, resultat in enumerate(resultats[:5], 1):
+                # Extraire le titre
+                titre_elem = resultat.find('h3')
+                titre = titre_elem.get_text() if titre_elem else "Pas de titre"
+                
+                # Extraire le lien
+                lien_elem = resultat.find('a')
+                lien = lien_elem['href'] if lien_elem else "#"
+                
+                # Extraire l'extrait
+                extrait_elem = resultat.find('div', class_='VwiC3b')
+                extrait = extrait_elem.get_text() if extrait_elem else "Pas de description"
+                
+                # Ajouter le résultat à la liste
+                resultats_recherche.append({
+                    'title': titre[:100],
+                    'link': lien,
+                    'snippet': extrait[:200]
+                })
+            
+            return resultats_recherche
+        
+        except Exception as e:
+            self._ajouter_message("Système", f"Erreur lors de la recherche : {str(e)}")
+            return []
+    
+    def _ajouter_mode_ecriture(self):
+        """Ajoute un mode d'écriture assisté"""
+        # Créer une fenêtre modale pour le mode écriture
+        self.fenetre_ecriture = ctk.CTkToplevel(self)
+        self.fenetre_ecriture.title("Mode Écriture Assisté")
+        self.fenetre_ecriture.geometry("800x600")
+        
+        # Frame principale
+        frame_principal = ctk.CTkFrame(self.fenetre_ecriture)
+        frame_principal.pack(fill='both', expand=True, padx=10, pady=10)
+        
+        # Options de type de document
+        ctk.CTkLabel(frame_principal, text="Type de Document", font=("Arial", 12, "bold")).pack(pady=(10,5))
+        
+        self.var_type_document = tk.StringVar(value="Lettre")
+        types_documents = ["Lettre", "Article", "Rapport", "Poème", "Histoire", "Email"]
+        
+        menu_type_document = ctk.CTkOptionMenu(
+            frame_principal, 
+            values=types_documents,
+            variable=self.var_type_document,
+            width=300
+        )
+        menu_type_document.pack(pady=5)
+        
+        # Zone de contexte
+        ctk.CTkLabel(frame_principal, text="Contexte/Instructions", font=("Arial", 12, "bold")).pack(pady=(10,5))
+        
+        self.zone_contexte = ctk.CTkTextbox(
+            frame_principal, 
+            width=700, 
+            height=100,
+            font=("Arial", 12)
+        )
+        self.zone_contexte.pack(pady=5)
+        
+        # Zone de texte principale
+        ctk.CTkLabel(frame_principal, text="Votre Texte", font=("Arial", 12, "bold")).pack(pady=(10,5))
+        
+        self.zone_texte = ctk.CTkTextbox(
+            frame_principal, 
+            width=700, 
+            height=300,
+            font=("Arial", 12)
+        )
+        self.zone_texte.pack(pady=5)
+        
+        # Boutons d'action
+        frame_boutons = ctk.CTkFrame(frame_principal, fg_color="transparent")
+        frame_boutons.pack(pady=10)
+        
+        # Bouton Générer
+        bouton_generer = ctk.CTkButton(
+            frame_boutons, 
+            text="Générer avec IA", 
+            command=self._generer_texte_ia,
+            fg_color=COULEURS["accent_primaire"]
+        )
+        bouton_generer.pack(side='left', padx=5)
+        
+        # Bouton Enregistrer
+        bouton_enregistrer = ctk.CTkButton(
+            frame_boutons, 
+            text="Enregistrer", 
+            command=self._enregistrer_texte,
+            fg_color=COULEURS["accent_secondaire"]
+        )
+        bouton_enregistrer.pack(side='left', padx=5)
+        
+        # Bouton Copier
+        bouton_copier = ctk.CTkButton(
+            frame_boutons, 
+            text="Copier", 
+            command=self._copier_texte,
+            fg_color="gray"
+        )
+        bouton_copier.pack(side='left', padx=5)
+    
+    def _generer_texte_ia(self):
+        """Génère du texte assisté par IA"""
+        try:
+            # Récupérer le contexte et le type de document
+            contexte = self.zone_contexte.get("1.0", tk.END).strip()
+            type_document = self.var_type_document.get()
+            
+            # Prompt pour Ollama
+            prompt = f"""
+            Tu es un assistant d'écriture professionnel. 
+            Type de document : {type_document}
+            Contexte : {contexte}
+            
+            Génère un texte adapté au type de document et au contexte fourni.
+            """
+            
+            # Utiliser Ollama pour générer le texte
+            reponse = self.gestionnaire_ollama.generer_reponse(prompt)
+            
+            # Afficher le texte généré
+            self.zone_texte.delete("1.0", tk.END)
+            self.zone_texte.insert(tk.END, reponse)
+            
+        except Exception as e:
+            messagebox.showerror("Erreur", f"Impossible de générer le texte : {str(e)}")
+    
+    def _enregistrer_texte(self):
+        """Enregistre le texte dans un fichier"""
+        try:
+            # Choisir le fichier de destination
+            fichier = filedialog.asksaveasfilename(
+                defaultextension=".txt",
+                filetypes=[
+                    ("Fichiers texte", "*.txt"),
+                    ("Fichiers Word", "*.docx"),
+                    ("Tous les fichiers", "*.*")
+                ]
+            )
+            
+            if fichier:
+                texte = self.zone_texte.get("1.0", tk.END).strip()
+                
+                # Enregistrer selon l'extension
+                if fichier.endswith('.docx'):
+                    import docx
+                    doc = docx.Document()
+                    doc.add_paragraph(texte)
+                    doc.save(fichier)
+                else:
+                    with open(fichier, 'w', encoding='utf-8') as f:
+                        f.write(texte)
+                
+                messagebox.showinfo("Succès", f"Texte enregistré dans {fichier}")
+        
+        except Exception as e:
+            messagebox.showerror("Erreur", f"Impossible d'enregistrer : {str(e)}")
+    
+    def _copier_texte(self):
+        """Copie le texte dans le presse-papiers"""
+        texte = self.zone_texte.get("1.0", tk.END).strip()
+        self.clipboard_clear()
+        self.clipboard_append(texte)
+        messagebox.showinfo("Copié", "Le texte a été copié dans le presse-papiers")
+
 class InterfaceAssistantIA(ctk.CTk):
-    def __init__(self, gestionnaire_config):
+    def __init__(self, gestionnaire_config, gestionnaire_ollama):
         super().__init__()
         
         # Configuration de base
@@ -738,6 +1067,9 @@ class InterfaceAssistantIA(ctk.CTk):
         
         # Gestionnaire de configuration
         self.gestionnaire_config = gestionnaire_config
+        
+        # Gestionnaire Ollama
+        self.gestionnaire_ollama = gestionnaire_ollama
         
         # Création de la structure principale
         self._creer_interface_principale()
@@ -793,7 +1125,8 @@ class InterfaceAssistantIA(ctk.CTk):
         # Créer l'onglet de conversation
         conversation_onglet = ConversationOnglet(
             nouvel_onglet, 
-            self.gestionnaire_config
+            self.gestionnaire_config,
+            self.gestionnaire_ollama
         )
         conversation_onglet.pack(fill='both', expand=True)
         
