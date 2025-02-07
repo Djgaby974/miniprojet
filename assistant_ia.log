@@ -352,3 +352,369 @@ TypeError: InterfaceAssistantIA.__init__() missing 1 required positional argumen
 2025-02-06 13:19:45,987 - AssistantIA - INFO - - Modèle sans nom
 2025-02-06 13:19:46,245 - AssistantIA - INFO - Lancement de l'interface utilisateur
 2025-02-06 13:23:54,507 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-06 13:31:26,711 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-06 13:31:26,754 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-06 13:31:26,758 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-06 13:31:26,759 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-06 13:31:26,760 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 13:31:26,760 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 13:31:27,005 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-06 13:33:28,964 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-06 13:43:02,347 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-06 13:43:02,360 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-06 13:43:02,367 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-06 13:43:02,368 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-06 13:43:02,368 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 13:43:02,369 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 13:43:02,624 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-06 13:48:57,628 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-06 13:49:02,625 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-06 13:49:02,640 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-06 13:49:02,647 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-06 13:49:02,647 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-06 13:49:02,648 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 13:49:02,649 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 13:49:02,895 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-06 13:52:39,025 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-06 13:52:46,147 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-06 13:52:46,156 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-06 13:52:46,161 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-06 13:52:46,162 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-06 13:52:46,162 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 13:52:46,163 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 13:52:46,371 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-06 13:56:27,795 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-06 13:56:32,660 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-06 13:56:32,667 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-06 13:56:32,673 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-06 13:56:32,673 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-06 13:56:32,674 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 13:56:32,675 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 13:56:32,892 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-06 13:59:57,297 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-06 14:00:01,024 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-06 14:00:01,037 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-06 14:00:01,043 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-06 14:00:01,045 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-06 14:00:01,045 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 14:00:01,047 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 14:00:01,297 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-06 14:02:27,745 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-06 14:02:30,641 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-06 14:02:30,651 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-06 14:02:30,656 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-06 14:02:30,657 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-06 14:02:30,659 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 14:02:30,659 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 14:02:30,833 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-06 14:06:58,414 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-06 14:07:01,717 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-06 14:07:01,725 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-06 14:07:01,730 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-06 14:07:01,731 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-06 14:07:01,731 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 14:07:01,732 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 14:07:01,906 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-06 14:10:47,372 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-06 14:14:51,850 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-06 14:14:51,891 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-06 14:14:51,895 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-06 14:14:51,895 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-06 14:14:51,896 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 14:14:51,896 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 14:14:52,159 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-06 14:20:10,656 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-06 14:24:02,490 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-06 14:24:02,590 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-06 14:24:02,594 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-06 14:24:02,595 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-06 14:24:02,595 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 14:24:02,596 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 14:24:02,935 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-06 14:27:18,904 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-06 14:27:22,271 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-06 14:27:22,279 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-06 14:27:22,285 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-06 14:27:22,285 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-06 14:27:22,287 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 14:27:22,288 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 14:27:22,515 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-06 14:30:45,038 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-06 14:30:47,504 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-06 14:30:47,510 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-06 14:30:47,515 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-06 14:30:47,516 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-06 14:30:47,517 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 14:30:47,517 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 14:30:47,715 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-06 14:39:10,115 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-06 14:39:30,328 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-06 14:39:30,369 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-06 14:39:30,374 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-06 14:39:30,375 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-06 14:39:30,375 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 14:39:30,376 - AssistantIA - INFO - - Modèle sans nom
+2025-02-06 14:39:30,620 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-06 14:39:56,290 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-07 09:26:55,057 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-07 09:26:55,114 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-07 09:26:55,120 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-07 09:26:55,120 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-07 09:26:55,121 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 09:26:55,121 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 09:26:55,477 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-07 09:42:00,376 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-07 09:42:07,253 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-07 09:42:07,297 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-07 09:42:07,302 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-07 09:42:07,303 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-07 09:42:07,303 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 09:42:07,304 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 09:42:08,900 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-07 09:45:18,128 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-07 09:45:21,865 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-07 09:45:21,873 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-07 09:45:21,880 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-07 09:45:21,881 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-07 09:45:21,882 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 09:45:21,884 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 09:45:22,125 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-07 09:51:56,265 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-07 09:52:03,060 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-07 09:52:03,070 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-07 09:52:03,076 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-07 09:52:03,077 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-07 09:52:03,078 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 09:52:03,079 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 09:52:03,374 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-07 09:55:51,542 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-07 09:55:56,037 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-07 09:55:56,064 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-07 09:55:56,071 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-07 09:55:56,071 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-07 09:55:56,073 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 09:55:56,074 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 09:55:56,356 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-07 09:57:55,558 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-07 09:59:32,487 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-07 09:59:32,512 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-07 09:59:32,518 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-07 09:59:32,518 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-07 09:59:32,519 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 09:59:32,520 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 09:59:32,738 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-07 10:02:29,562 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-07 10:02:35,857 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-07 10:02:35,877 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-07 10:02:35,885 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-07 10:02:35,885 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-07 10:02:35,888 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 10:02:35,889 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 10:02:36,118 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-07 10:07:43,818 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-07 10:09:59,898 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-07 10:09:59,950 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-07 10:09:59,956 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-07 10:09:59,956 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-07 10:09:59,957 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 10:09:59,957 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 10:10:00,285 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-07 10:14:09,996 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-07 10:14:16,468 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-07 10:14:16,513 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-07 10:14:16,518 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-07 10:14:16,519 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-07 10:14:16,519 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 10:14:16,520 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 10:14:16,817 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-07 10:19:17,183 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-07 10:19:23,042 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-07 10:19:23,052 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-07 10:19:23,057 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-07 10:19:23,058 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-07 10:19:23,058 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 10:19:23,059 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 10:19:23,325 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-07 10:21:53,946 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-07 10:22:03,825 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-07 10:22:03,837 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-07 10:22:03,843 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-07 10:22:03,844 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-07 10:22:03,844 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 10:22:03,845 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 10:22:04,126 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-07 10:24:33,824 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-07 10:24:39,659 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-07 10:24:39,669 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-07 10:24:39,673 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-07 10:24:39,674 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-07 10:24:39,674 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 10:24:39,674 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 10:24:39,933 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-07 10:28:14,333 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-07 10:28:25,048 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-07 10:28:25,098 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-07 10:28:25,105 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-07 10:28:25,105 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-07 10:28:25,106 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 10:28:25,106 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 10:28:25,407 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-07 10:28:46,145 - AssistantIA.Ollama - ERROR - Erreur lors du chat avec Ollama : model "mistral" not found, try pulling it first (status code: 404)
+2025-02-07 10:28:46,155 - AssistantIA.Ollama - ERROR - Erreur lors du chat avec Ollama : model "llama2" not found, try pulling it first (status code: 404)
+2025-02-07 10:40:59,254 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-07 10:59:51,773 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-07 10:59:51,790 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-07 10:59:51,796 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-07 10:59:51,797 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-07 10:59:51,797 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 10:59:51,798 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 10:59:51,798 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 10:59:52,149 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-07 11:03:54,289 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-07 11:03:54,308 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-07 11:03:54,318 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-07 11:03:54,318 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-07 11:03:54,320 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 11:03:54,320 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 11:03:54,320 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 11:03:54,577 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-07 11:13:37,609 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-07 11:13:42,021 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-07 11:13:42,061 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-07 11:13:42,067 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-07 11:13:42,068 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-07 11:13:42,069 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 11:13:42,069 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 11:13:42,070 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 11:13:42,367 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-07 11:14:55,628 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-07 11:14:55,637 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-07 11:14:55,643 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-07 11:14:55,643 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-07 11:14:55,643 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 11:14:55,643 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 11:14:55,645 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 11:14:55,860 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-07 11:22:16,848 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-07 11:23:09,070 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-07 11:23:09,108 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-07 11:23:09,115 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-07 11:23:09,115 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-07 11:23:09,116 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 11:23:09,117 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 11:23:09,118 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 11:23:10,596 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-07 11:25:08,473 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-07 11:27:43,557 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-07 11:27:43,618 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-07 11:27:43,625 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-07 11:27:43,626 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-07 11:27:43,626 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 11:27:43,627 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 11:27:43,628 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 11:27:43,943 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-07 11:28:48,683 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-07 11:30:32,127 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-07 11:30:32,145 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-07 11:30:32,152 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-07 11:30:32,153 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-07 11:30:32,154 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 11:30:32,155 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 11:30:32,155 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 11:30:32,473 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-07 12:21:45,927 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-07 12:21:57,090 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-07 12:21:57,146 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-07 12:21:57,153 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-07 12:21:57,155 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-07 12:21:57,155 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 12:21:57,156 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 12:21:57,156 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 12:21:57,491 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-07 12:25:28,793 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-07 12:25:53,032 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-07 12:25:53,044 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-07 12:25:53,051 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-07 12:25:53,052 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-07 12:25:53,053 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 12:25:53,053 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 12:25:53,054 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 12:25:53,285 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-07 12:29:24,226 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-07 12:29:35,581 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-07 12:29:35,593 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-07 12:29:35,602 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-07 12:29:35,603 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-07 12:29:35,603 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 12:29:35,604 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 12:29:35,605 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 12:29:35,833 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-07 12:31:13,297 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-07 12:31:21,262 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-07 12:31:21,271 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-07 12:31:21,277 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-07 12:31:21,277 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-07 12:31:21,278 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 12:31:21,278 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 12:31:21,278 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 12:31:21,565 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-07 12:42:13,868 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-07 12:42:20,262 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-07 12:42:20,323 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-07 12:42:20,332 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-07 12:42:20,332 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-07 12:42:20,332 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 12:42:20,334 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 12:42:20,334 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 12:42:20,335 - AssistantIA - CRITICAL - Erreur fatale : InterfaceAssistantIA.__init__() missing 1 required positional argument: 'gestionnaire_base_donnees'
+Traceback (most recent call last):
+  File "C:\Users\gabri\OneDrive\Bureau\CDA8-FORMATION\Cinquième semaine de formation\miniprojet\main.py", line 64, in principale
+    application = InterfaceAssistantIA(
+                  ^^^^^^^^^^^^^^^^^^^^^
+TypeError: InterfaceAssistantIA.__init__() missing 1 required positional argument: 'gestionnaire_base_donnees'
+2025-02-07 12:42:20,336 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-07 12:45:18,423 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-07 12:45:18,487 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-07 12:45:18,497 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-07 12:45:18,497 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-07 12:45:18,498 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 12:45:18,499 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 12:45:18,499 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 12:45:19,678 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-07 12:48:05,911 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-07 12:48:16,972 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-07 12:48:16,986 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-07 12:48:16,999 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-07 12:48:17,000 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-07 12:48:17,001 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 12:48:17,003 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 12:48:17,004 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 12:48:17,959 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-07 12:48:54,661 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-07 12:49:01,718 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-07 12:49:01,731 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-07 12:49:01,740 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-07 12:49:01,740 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-07 12:49:01,741 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 12:49:01,743 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 12:49:01,744 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 12:49:02,047 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-07 12:51:34,881 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-07 12:53:36,984 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-07 12:53:37,046 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-07 12:53:37,056 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-07 12:53:37,057 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-07 12:53:37,057 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 12:53:37,058 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 12:53:37,060 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 12:53:37,377 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-07 12:53:56,044 - AssistantIA - INFO - Fermeture de l'Assistant IA
+2025-02-07 12:54:01,473 - AssistantIA - INFO - Démarrage de l'Assistant IA
+2025-02-07 12:54:01,481 - AssistantIA.Ollama - INFO - Connexion à Ollama réussie. Modèle par défaut : llama3.2
+2025-02-07 12:54:01,492 - AssistantIA - INFO - Connexion à Ollama réussie
+2025-02-07 12:54:01,493 - AssistantIA - INFO - Modèles Ollama disponibles :
+2025-02-07 12:54:01,493 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 12:54:01,494 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 12:54:01,495 - AssistantIA - INFO - - Modèle sans nom
+2025-02-07 12:54:01,720 - AssistantIA - INFO - Lancement de l'interface utilisateur
+2025-02-07 12:58:47,648 - AssistantIA - INFO - Fermeture de l'Assistant IA

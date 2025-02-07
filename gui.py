@@ -21,6 +21,7 @@ import time
 import webbrowser
 from bs4 import BeautifulSoup
 import urllib.parse
+import pdfplumber
 
 # Palette de couleurs (conservée de l'ancienne implémentation)
 COULEURS = {
@@ -49,6 +50,7 @@ class ConversationOnglet(ctk.CTkFrame):
         self.gestionnaire_config = gestionnaire_config
         self.contexte_actuel = "Développement"
         self.fichier_charge = None
+        self.dernier_chemin_fichier = None
         
         # Cadre de chat avec style IDE
         self.cadre_chat = ctk.CTkScrollableFrame(
@@ -301,18 +303,45 @@ class ConversationOnglet(ctk.CTkFrame):
             Réponds TOUJOURS en français avec précision et clarté.
             """)
 
-            # Générer la réponse avec Ollama
-            reponse = self.gestionnaire_ollama.chat(
-                model=modele,
-                messages=[
-                    {'role': 'system', 'content': prompt_systeme},
-                    {'role': 'user', 'content': message}
-                ]
-            )
+            # Log de débogage
+            print(f"[DEBUG] Modèle utilisé : {modele}")
+            print(f"[DEBUG] Contexte : {self.contexte_actuel}")
+            print(f"[DEBUG] Message : {message}")
 
-            # Ajouter la réponse de l'IA
-            self._ajouter_message("Assistant IA", reponse['message']['content'])
+            # Générer la réponse avec Ollama
+            try:
+                reponse = self.gestionnaire_ollama.chat(
+                    model=modele,
+                    messages=[
+                        {'role': 'system', 'content': prompt_systeme},
+                        {'role': 'user', 'content': message}
+                    ]
+                )
+                
+                # Log de débogage supplémentaire
+                print(f"[DEBUG] Type de réponse : {type(reponse)}")
+                print(f"[DEBUG] Contenu de la réponse : {reponse}")
+
+                # Vérification robuste de la réponse
+                if isinstance(reponse, dict) and 'message' in reponse:
+                    contenu_reponse = reponse['message'].get('content', 'Réponse vide')
+                    self._ajouter_message("Assistant IA", contenu_reponse)
+                elif hasattr(reponse, 'message'):
+                    self._ajouter_message("Assistant IA", reponse.message)
+                else:
+                    self._ajouter_message("Assistant IA", str(reponse))
+
+            except AttributeError as attr_err:
+                print(f"[ERREUR] Erreur d'attribut : {attr_err}")
+                self._ajouter_message("Assistant IA", f"Erreur d'attribut : {attr_err}")
+            except TypeError as type_err:
+                print(f"[ERREUR] Erreur de type : {type_err}")
+                self._ajouter_message("Assistant IA", f"Erreur de type : {type_err}")
+
         except Exception as e:
+            import traceback
+            print(f"[ERREUR GLOBALE] {str(e)}")
+            traceback.print_exc()
             self._ajouter_message("Assistant IA", f"Erreur : {str(e)}")
         finally:
             # Réactiver la saisie
@@ -450,7 +479,7 @@ class {nom_classe}:
     def _charger_fichier(self):
         """Charge un fichier et prépare pour résumé"""
         try:
-            # Ouvrir le sélecteur de fichier
+            print(" Ouverture du sélecteur de fichier")
             chemin_fichier = filedialog.askopenfilename(
                 title="Sélectionner un fichier",
                 filetypes=[
@@ -461,79 +490,406 @@ class {nom_classe}:
                 ]
             )
             
+            print(f" Chemin du fichier sélectionné : {chemin_fichier}")
+            
             if not chemin_fichier:
+                print(" Aucun fichier sélectionné")
                 return
             
             # Extraire le texte selon le type de fichier
+            print(" Début de l'extraction de texte")
             self.fichier_charge = self._extraire_texte(chemin_fichier)
+            print(f" Longueur du texte extrait : {len(self.fichier_charge) if self.fichier_charge else 0}")
             
             # Activer le bouton de résumé
+            print(" Activation du bouton résumer")
             self.bouton_resumer.configure(state='normal')
             
             # Afficher un message de confirmation
+            print(f" Fichier chargé : {os.path.basename(chemin_fichier)}")
             self._ajouter_message("Système", f"Fichier chargé : {os.path.basename(chemin_fichier)}")
             
+            # Mettre à jour le dernier chemin de fichier
+            self.dernier_chemin_fichier = chemin_fichier
+            
         except Exception as e:
+            print(f" ERREUR CRITIQUE DE CHARGEMENT : {e}")
+            print(f"Type d'erreur : {type(e)}")
+            import traceback
+            traceback.print_exc()  # Affiche la trace complète de l'erreur
             self._ajouter_message("Système", f"Erreur de chargement : {str(e)}")
-        
+
     def _extraire_texte(self, chemin_fichier):
-        """Extrait le texte de différents types de fichiers"""
+        """
+        Extrait le texte d'un fichier en fonction de son extension.
+        
+        Args:
+            chemin_fichier (str): Chemin complet du fichier à extraire
+        
+        Returns:
+            str: Texte extrait du fichier
+        """
+        print(f" Début de l'extraction pour : {chemin_fichier}")
+        
+        # Obtenir l'extension du fichier
         extension = os.path.splitext(chemin_fichier)[1].lower()
+        print(f" Extension du fichier : {extension}")
         
         try:
-            if extension == '.pdf':
-                with open(chemin_fichier, 'rb') as fichier:
-                    lecteur_pdf = PyPDF2.PdfReader(fichier)
-                    texte = ""
-                    for page in lecteur_pdf.pages:
-                        texte += page.extract_text()
-            elif extension == '.docx':
-                doc = docx.Document(chemin_fichier)
-                texte = "\n".join([paragraph.text for paragraph in doc.paragraphs])
-            elif extension in ['.txt', '.md']:
-                with open(chemin_fichier, 'r', encoding='utf-8') as fichier:
-                    texte = fichier.read()
-            else:
-                # Utiliser textract pour les autres formats
-                texte = textract.process(chemin_fichier).decode('utf-8')
+            texte_extrait = ""
             
-            return texte
+            # Extraction PDF avec pdfplumber
+            if extension == '.pdf':
+                print(" Extraction PDF avec pdfplumber")
+                import pdfplumber
+                
+                with pdfplumber.open(chemin_fichier) as pdf:
+                    # Extraire le texte de chaque page
+                    pages_texte = []
+                    for page in pdf.pages:
+                        # Essayer plusieurs méthodes d'extraction
+                        page_texte = page.extract_text()
+                        
+                        # Si extract_text() échoue, essayer extract_words()
+                        if not page_texte or not page_texte.strip():
+                            words = page.extract_words()
+                            page_texte = ' '.join([word['text'] for word in words])
+                        
+                        if page_texte and page_texte.strip():
+                            pages_texte.append(page_texte)
+                    
+                    print(f" Pages PDF extraites : {len(pages_texte)}")
+                    
+                    # Concaténer les pages
+                    texte_extrait = "\n".join(pages_texte)
+                    
+                    # Nettoyer et formater le texte
+                    texte_extrait = texte_extrait.replace('\n', ' ').strip()
+            
+            # Extraction DOCX
+            elif extension == '.docx':
+                print(" Extraction DOCX avec python-docx")
+                import docx
+                doc = docx.Document(chemin_fichier)
+                texte_extrait = "\n".join([paragraph.text for paragraph in doc.paragraphs if paragraph.text.strip()])
+            
+            # Extraction TXT et MD
+            elif extension in ['.txt', '.md']:
+                print(f" Extraction {extension}")
+                with open(chemin_fichier, 'r', encoding='utf-8') as fichier:
+                    texte_extrait = fichier.read().strip()
+            
+            else:
+                print(f" Type de fichier non supporté : {extension}")
+                return ""
+            
+            # Vérifier la longueur du texte extrait
+            print(f" Longueur du texte extrait : {len(texte_extrait)}")
+            
+            # Nettoyer le texte
+            texte_extrait = re.sub(r'\s+', ' ', texte_extrait).strip()
+            
+            # Vérifier si le texte extrait est significatif
+            if len(texte_extrait) < 50:
+                print(" Texte extrait trop court, possible erreur d'extraction")
+                return ""
+            
+            return texte_extrait
+        
         except Exception as e:
-            self._ajouter_message("Système", f"Erreur d'extraction : {str(e)}")
+            print(f" Erreur lors de l'extraction : {e}")
+            import traceback
+            traceback.print_exc()
+            return ""
+
+    def _lire_fichier_avec_encodage(self, chemin_fichier):
+        """
+        Lire un fichier avec différents encodages
+        
+        :param chemin_fichier: Chemin complet du fichier
+        :return: Contenu du fichier
+        """
+        # Liste des encodages à essayer
+        encodages = ['utf-8', 'latin-1', 'cp1252', 'iso-8859-1']
+        
+        # Vérifier si le fichier existe
+        if not os.path.exists(chemin_fichier):
+            raise FileNotFoundError(f"Le fichier {chemin_fichier} n'existe pas")
+        
+        # Essayer différents encodages
+        for encodage in encodages:
+            try:
+                with open(chemin_fichier, 'r', encoding=encodage) as fichier:
+                    return fichier.read()
+            except UnicodeDecodeError:
+                # Passer à l'encodage suivant si celui-ci échoue
+                continue
+        
+        # Si aucun encodage ne fonctionne
+        raise UnicodeDecodeError(f"Impossible de lire le fichier avec les encodages : {encodages}")
+    
+    def _nettoyer_et_corriger_chemin(self, chemin_original):
+        """
+        Nettoie et corrige les chemins problématiques
+        
+        :param chemin_original: Chemin original potentiellement incorrect
+        :return: Chemin corrigé
+        """
+        # Débogage initial
+        print(" Début de la correction de chemin")
+        print(f" Chemin original brut : '{repr(chemin_original)}'")
+        
+        # Vérifier si l'entrée est None ou vide
+        if not chemin_original:
+            print(" Chemin d'entrée vide ou None")
             return None
         
-    def _resumer_fichier(self):
-        """Génère un résumé du fichier chargé"""
-        if not self.fichier_charge:
-            self._ajouter_message("Système", "Aucun fichier chargé.")
-            return
+        # Convertir en chaîne si ce n'est pas déjà le cas
+        try:
+            chemin_original = str(chemin_original)
+        except Exception as e:
+            print(f" Erreur de conversion en chaîne : {e}")
+            return None
+        
+        # Supprimer les espaces supplémentaires au début et à la fin
+        chemin_corrige = chemin_original.strip()
+        print(f" Après strip : '{chemin_corrige}'")
+        
+        # Correction des séparateurs
+        chemin_corrige = chemin_corrige.replace('\\', os.path.sep)
+        chemin_corrige = chemin_corrige.replace('/', os.path.sep)
+        print(f" Après correction des séparateurs : '{chemin_corrige}'")
+        
+        # Correction des espaces dans le chemin
+        chemin_corrige = re.sub(r'\s+', ' ', chemin_corrige)  # Remplace plusieurs espaces par un seul
+        print(f" Après correction des espaces : '{chemin_corrige}'")
+        
+        # Correction spécifique pour les chemins Windows
+        if chemin_corrige.startswith('C:') and not chemin_corrige.startswith('C:\\'):
+            chemin_corrige = chemin_corrige.replace('C:', 'C:\\')
+        print(f" Après correction Windows : '{chemin_corrige}'")
+        
+        # Corrections de chemins courants
+        corrections_chemins = {
+            'Users\\gabrilOneDrive': 'Users\\gabri\\OneDrive',
+            'OneDrive \\Bureau': 'OneDrive\\Bureau',
+            'OneDrive \Bureau': 'OneDrive\\Bureau',
+            'Cinquiem e semaine': 'Cinquième semaine',
+            'miniprojet ': 'miniprojet'
+        }
+        
+        for motif, correction in corrections_chemins.items():
+            if motif in chemin_corrige:
+                chemin_corrige = chemin_corrige.replace(motif, correction)
+                print(f" Correction '{motif}' -> '{correction}'")
+        
+        # Normaliser le chemin
+        try:
+            chemin_corrige = os.path.normpath(chemin_corrige)
+            print(f" Après normalisation : '{chemin_corrige}'")
+        except Exception as e:
+            print(f" Erreur de normalisation : {e}")
+        
+        # Vérification de l'existence du fichier/répertoire
+        if os.path.exists(chemin_corrige):
+            print(f" Chemin validé : {chemin_corrige}")
+            return chemin_corrige
+        
+        # Tentative de correction avancée
+        repertoire_parent = os.path.dirname(chemin_corrige)
+        print(f" Répertoire parent : '{repertoire_parent}'")
         
         try:
-            # Générer un résumé avec Ollama
-            reponse = self.gestionnaire_ollama.chat(
-                model='llama3.2',
-                messages=[
-                    {
-                        'role': 'system', 
-                        'content': """
-                        Tu es un assistant spécialisé en résumé de documents.
-                        Fournis un résumé concis, structuré et informatif.
-                        Mets en évidence les points clés et les informations principales.
-                        """
-                    },
-                    {
-                        'role': 'user', 
-                        'content': f"Résume ce document :\n\n{self.fichier_charge[:4000]}"
-                    }
-                ]
+            if os.path.exists(repertoire_parent):
+                # Lister les fichiers du répertoire
+                fichiers_repertoire = os.listdir(repertoire_parent)
+                print(f" Fichiers du répertoire parent ({repertoire_parent}) :")
+                for fichier in fichiers_repertoire:
+                    print(f"- {fichier}")
+                
+                # Recherche de fichiers similaires
+                nom_fichier = os.path.basename(chemin_corrige)
+                print(f" Recherche de fichiers similaires à : '{nom_fichier}'")
+                
+                for fichier in fichiers_repertoire:
+                    # Comparaison insensible à la casse et aux espaces
+                    if (fichier.lower().replace(' ', '') == 
+                        nom_fichier.lower().replace(' ', '')):
+                        chemin_corrige = os.path.join(repertoire_parent, fichier)
+                        print(f" Fichier similaire trouvé : {chemin_corrige}")
+                        return chemin_corrige
+        except Exception as e:
+            print(f" Erreur lors de la recherche : {e}")
+        
+        # Dernier recours : message d'erreur
+        print(" Impossible de trouver le fichier")
+        return None
+    
+    def _verifier_origine_fichier(self, chemin_fichier):
+        """
+        Vérification approfondie de l'origine du fichier
+        
+        :param chemin_fichier: Chemin du fichier à vérifier
+        :return: Informations détaillées sur le fichier
+        """
+        # Vérifier si le chemin est None ou vide
+        if not chemin_fichier:
+            print(" Aucun chemin de fichier fourni")
+            raise FileNotFoundError("Aucun chemin de fichier valide")
+        
+        # Nettoyer et corriger le chemin
+        chemin_corrige = self._nettoyer_et_corriger_chemin(chemin_fichier)
+        
+        # Vérifier à nouveau si le chemin est None après correction
+        if chemin_corrige is None:
+            print(" Impossible de corriger le chemin du fichier")
+            raise FileNotFoundError(f"Chemin incorrect : {chemin_fichier}")
+        
+        # Collecter toutes les informations possibles
+        infos_fichier = {
+            "chemin_original": chemin_fichier,
+            "chemin_normalise": os.path.normpath(chemin_corrige),
+            "chemin_absolu": os.path.abspath(chemin_corrige),
+            "repertoire_courant": os.getcwd(),
+            "repertoire_parent": os.path.dirname(chemin_corrige),
+            "fichier_existe": os.path.exists(chemin_corrige),
+            "est_fichier": os.path.isfile(chemin_corrige),
+            "est_lisible": os.access(chemin_corrige, os.R_OK) if os.path.exists(chemin_corrige) else False
+        }
+        
+        # Ajouter des messages de débogage détaillés
+        messages_debug = [
+            f" Origine du fichier : {infos_fichier['chemin_original']}",
+            f" Chemin normalisé : {infos_fichier['chemin_normalise']}",
+            f" Chemin absolu : {infos_fichier['chemin_absolu']}",
+            f" Répertoire courant : {infos_fichier['repertoire_courant']}",
+            f" Répertoire parent : {infos_fichier['repertoire_parent']}",
+            f" Fichier existe : {infos_fichier['fichier_existe']}",
+            f" Est un fichier : {infos_fichier['est_fichier']}",
+            f" Fichier lisible : {infos_fichier['est_lisible']}"
+        ]
+        
+        # Lister les fichiers du répertoire parent
+        try:
+            repertoire_parent = infos_fichier['repertoire_parent']
+            if repertoire_parent and os.path.exists(repertoire_parent):
+                fichiers_repertoire = os.listdir(repertoire_parent)
+                print(f" Fichiers du répertoire : {fichiers_repertoire}")
+        except Exception as e:
+            messages_debug.append(f" Erreur de listage : {e}")
+        
+        # Ajouter tous les messages de débogage
+        for message in messages_debug:
+            print(message)
+        
+        # Vérification finale
+        if not infos_fichier['est_fichier'] or not infos_fichier['est_lisible']:
+            raise FileNotFoundError(
+                f"Impossible de lire le fichier {infos_fichier['chemin_absolu']}. "
+                "Vérifiez le chemin, les permissions et l'existence du fichier."
+            )
+        
+        return infos_fichier
+    
+    def _resumer_fichier(self, chemin_fichier=None):
+        """
+        Résume le contenu du fichier chargé
+        
+        Args:
+            chemin_fichier (str, optional): Chemin du fichier à résumer. 
+            Si None, tentera de retrouver le fichier chargé.
+        """
+        # Vérifier si un chemin de fichier est fourni
+        if chemin_fichier is None:
+            # Liste des chemins possibles
+            derniers_chemins = [
+                chemin for chemin in [
+                    getattr(self, 'dernier_chemin_fichier', None),
+                    getattr(self, 'chemin_fichier_charge', None)
+                ] if chemin is not None
+            ]
+            
+            # Vérifier si un fichier est chargé
+            if not derniers_chemins:
+                messagebox.showerror("Erreur", "Veuillez d'abord charger un fichier")
+                return "Aucun fichier chargé"
+            
+            # Prendre le premier chemin disponible
+            chemin_fichier = derniers_chemins[0]
+        
+        print(f" Chemin du fichier à résumer : {chemin_fichier}")
+        
+        try:
+            # Extraire le texte du fichier
+            contenu = self._extraire_texte(chemin_fichier)
+            
+            # Vérifier si le texte a été extrait avec succès
+            if not contenu or len(contenu) < 50:
+                self._ajouter_message("Système", "Impossible d'extraire le texte du fichier.")
+                return "Aucun contenu significatif n'a pu être extrait du fichier."
+            
+            # Tronquer le texte si trop long (limiter à 10000 caractères)
+            if len(contenu) > 10000:
+                contenu = contenu[:10000]
+            
+            # Préparer le prompt de résumé
+            prompt_systeme = f"""
+            Tu es un assistant professionnel spécialisé dans la rédaction de résumés en français.
+
+            OBJECTIFS PRINCIPAUX :
+            - Générer un résumé précis et informatif du document
+            - Capturer l'essence et les points clés du texte
+            - Produire un résumé en français clair et structuré
+
+            INSTRUCTIONS DÉTAILLÉES :
+            1. Analyse approfondie du document
+            2. Identifie le type et le contexte du document
+            3. Extrais les informations essentielles
+            4. Rédige un résumé professionnel qui répond aux questions :
+               - Quel est le sujet principal ?
+               - Quels sont les points clés ?
+               - Quelles sont les conclusions ou implications ?
+
+            RÈGLES DE RÉDACTION :
+            - Longueur : 200-400 mots
+            - Langage : Français professionnel
+            - Structure : Introduction, points principaux, conclusion
+            - Objectivité : Neutre et factuel
+            - Clarté : Compréhensible par un public général
+
+            CONTEXTE DU DOCUMENT :
+            - Nom : {os.path.basename(chemin_fichier)}
+            - Type de fichier : {os.path.splitext(chemin_fichier)[1]}
+            - Longueur : {len(contenu)} caractères
+
+            CONSIGNE FINALE :
+            Résume le document de manière à ce qu'une personne puisse comprendre son contenu essentiel en quelques minutes.
+
+            CONTENU DU DOCUMENT :
+            {contenu}
+            """
+            
+            # Générer le résumé avec Ollama
+            reponse = self._generer_reponse_ollama(
+                prompt_systeme, 
+                modele="mistral", 
+                temperature=0.3
             )
             
-            # Afficher le résumé
-            self._ajouter_message("Résumé", reponse['message']['content'])
+            # Ajouter le résumé au chat
+            self._ajouter_message("Système", f"📄 Résumé du fichier {os.path.basename(chemin_fichier)} :\n\n{reponse}")
             
-        except Exception as e:
-            self._ajouter_message("Système", f"Erreur de résumé : {str(e)}")
+            return reponse
         
+        except Exception as e:
+            print(f" Erreur lors du résumé : {e}")
+            import traceback
+            traceback.print_exc()
+            message_erreur = f"Erreur de résumé : {str(e)}"
+            self._ajouter_message("Système", message_erreur)
+            messagebox.showerror("Erreur de Résumé", message_erreur)
+            return message_erreur
+    
     def _afficher_dialogue_generation_image(self):
         """Ouvre un dialogue pour générer une image"""
         self.dialogue_image = ctk.CTkToplevel(self)
@@ -599,14 +955,14 @@ class {nom_classe}:
         """Prépare la génération d'image avec progression"""
         # Vérifier si une génération est déjà en cours
         if self.generation_en_cours:
-            self._ajouter_message("Système", "Une génération d'image est déjà en cours.")
+            print(" Une génération d'image est déjà en cours.")
             return
         
         description = self.description_image.get()
         style = self.style_image.get()
         
         if not description:
-            self._ajouter_message("Système", "Veuillez entrer une description.")
+            print(" Veuillez entrer une description.")
             return
         
         # Marquer la génération comme en cours
@@ -683,7 +1039,7 @@ class {nom_classe}:
             reponse = requests.post(API_URL, headers=headers, json=payload)
             
             if reponse.status_code != 200:
-                self._ajouter_message("Système", f"Erreur API : {reponse.text}")
+                print(f" Erreur API : {reponse.text}")
                 return
             
             # Convertir l'image
@@ -741,7 +1097,7 @@ class {nom_classe}:
             self.cadre_chat._parent_canvas.yview_moveto(1.0)
             
         except Exception as e:
-            self._ajouter_message("Système", f"Erreur de génération d'image : {str(e)}")
+            print(f" Erreur de génération d'image : {str(e)}")
             
         finally:
             # S'assurer que la progression atteint 100%
@@ -770,9 +1126,8 @@ class {nom_classe}:
             # Effectuer la requête
             reponse = requests.get(url, params=params)
             
-            # Vérifier si la requête a réussi
             if reponse.status_code != 200:
-                self._ajouter_message("Système", f"Erreur de recherche : {reponse.status_code}")
+                print(f" Erreur de recherche : {reponse.text}")
                 return
             
             # Convertir la réponse en JSON
@@ -780,7 +1135,7 @@ class {nom_classe}:
             
             # Vérifier si des résultats sont présents
             if 'organic_results' not in resultats_json:
-                self._ajouter_message("Système", "Aucun résultat trouvé.")
+                print(" Aucun résultat trouvé.")
                 return
             
             # Créer un cadre de message pour les résultats
@@ -836,14 +1191,11 @@ class {nom_classe}:
             self.cadre_chat.update()
             self.cadre_chat._parent_canvas.yview_moveto(1.0)
             
-            # Effacer la saisie
-            self.saisie_message.delete(0, tk.END)
-            
         except Exception as e:
-            self._ajouter_message("Système", f"Erreur de recherche web : {str(e)}")
+            print(f" Erreur de recherche web : {str(e)}")
             # Ajouter un message de débogage détaillé
             import traceback
-            self._ajouter_message("Système", traceback.format_exc())
+            traceback.print_exc()
             
     def _rechercher_web(self, requete):
         """Effectue une recherche web et retourne les résultats"""
@@ -865,7 +1217,7 @@ class {nom_classe}:
             
             # Vérifier si la requête a réussi
             if reponse.status_code != 200:
-                self._ajouter_message("Système", f"Erreur de recherche : {reponse.status_code}")
+                print(f" Erreur de recherche : {reponse.status_code}")
                 return []
             
             # Analyser le HTML
@@ -901,7 +1253,7 @@ class {nom_classe}:
             return resultats_recherche
         
         except Exception as e:
-            self._ajouter_message("Système", f"Erreur lors de la recherche : {str(e)}")
+            print(f" Erreur lors de la recherche : {str(e)}")
             return []
     
     def _ajouter_mode_ecriture(self):
@@ -1006,7 +1358,7 @@ class {nom_classe}:
             self.zone_texte.insert(tk.END, reponse)
             
         except Exception as e:
-            messagebox.showerror("Erreur", f"Impossible de générer le texte : {str(e)}")
+            print(f" Erreur de génération de texte : {str(e)}")
     
     def _enregistrer_texte(self):
         """Enregistre le texte dans un fichier"""
@@ -1034,17 +1386,128 @@ class {nom_classe}:
                     with open(fichier, 'w', encoding='utf-8') as f:
                         f.write(texte)
                 
-                messagebox.showinfo("Succès", f"Texte enregistré dans {fichier}")
+                print(f" Texte enregistré dans {fichier}")
         
         except Exception as e:
-            messagebox.showerror("Erreur", f"Impossible d'enregistrer : {str(e)}")
+            print(f" Erreur d'enregistrement : {str(e)}")
     
     def _copier_texte(self):
         """Copie le texte dans le presse-papiers"""
         texte = self.zone_texte.get("1.0", tk.END).strip()
         self.clipboard_clear()
         self.clipboard_append(texte)
-        messagebox.showinfo("Copié", "Le texte a été copié dans le presse-papiers")
+        print(" Le texte a été copié dans le presse-papiers")
+
+    def _obtenir_modeles_ollama(self):
+        """
+        Récupère la liste des modèles Ollama disponibles.
+        
+        Returns:
+            list: Liste des modèles Ollama installés
+        """
+        try:
+            # Utiliser subprocess pour exécuter la commande Ollama
+            import subprocess
+            resultat = subprocess.run(
+                ['ollama', 'list'], 
+                capture_output=True, 
+                text=True, 
+                check=True
+            )
+            
+            # Extraire les noms des modèles
+            modeles = [ligne.split()[0] for ligne in resultat.stdout.strip().split('\n')[1:]]
+            print(f" Modèles Ollama disponibles : {modeles}")
+            return modeles
+        
+        except subprocess.CalledProcessError as e:
+            print(f" Erreur lors de la récupération des modèles : {e}")
+            return []
+        except Exception as e:
+            print(f" Erreur inattendue : {e}")
+            return []
+
+    def _telecharger_modele_ollama(self, modele):
+        """
+        Télécharge un modèle Ollama s'il n'est pas déjà installé.
+        
+        Args:
+            modele (str): Nom du modèle à télécharger
+        
+        Returns:
+            bool: True si le modèle est disponible, False sinon
+        """
+        try:
+            import subprocess
+            
+            # Vérifier si le modèle existe déjà
+            modeles_disponibles = self._obtenir_modeles_ollama()
+            if modele in modeles_disponibles:
+                print(f" Modèle {modele} déjà installé")
+                return True
+            
+            # Télécharger le modèle
+            print(f" Téléchargement du modèle {modele}...")
+            resultat = subprocess.run(
+                ['ollama', 'pull', modele], 
+                capture_output=True, 
+                text=True, 
+                check=True
+            )
+            
+            print(f" Modèle {modele} téléchargé avec succès")
+            return True
+        
+        except subprocess.CalledProcessError as e:
+            print(f" Erreur lors du téléchargement de {modele} : {e}")
+            return False
+        except Exception as e:
+            print(f" Erreur inattendue lors du téléchargement : {e}")
+            return False
+
+    def _generer_reponse_ollama(self, prompt_systeme, modele='mistral', temperature=0.3):
+        """
+        Génère une réponse en utilisant le modèle Ollama spécifié.
+        
+        Args:
+            prompt_systeme (str): Le prompt système détaillé
+            modele (str, optional): Le modèle Ollama à utiliser. Défaut à 'mistral'.
+            temperature (float, optional): La température pour la génération. Défaut à 0.3.
+        
+        Returns:
+            str: La réponse générée par le modèle
+        """
+        try:
+            # Utiliser le gestionnaire Ollama existant
+            reponse = self.gestionnaire_ollama.chat(
+                model=modele,
+                messages=[
+                    {
+                        'role': 'system', 
+                        'content': prompt_systeme
+                    },
+                    {
+                        'role': 'user',
+                        'content': 'Génère une réponse basée sur le prompt système.'
+                    }
+                ]
+            )
+            
+            # Extraire le contenu de la réponse
+            if isinstance(reponse, dict):
+                resume = reponse.get('message', {}).get('content', '')
+            elif isinstance(reponse, str):
+                resume = reponse
+            else:
+                resume = "Impossible de générer une réponse."
+            
+            return resume.strip()
+        
+        except Exception as e:
+            print(f" Erreur de génération Ollama : {e}")
+            import traceback
+            traceback.print_exc()
+            return f"Erreur de génération : {str(e)}"
 
 class InterfaceAssistantIA(ctk.CTk):
     def __init__(self, gestionnaire_config, gestionnaire_ollama):
